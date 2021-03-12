@@ -10,7 +10,9 @@
   "author": "Jhoni Farias",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
-    "socket.io": "^3.1.2"
+    "socket.io": "^3.1.2",
+    "sqlite3": "^5.0.2"
   }
 }
