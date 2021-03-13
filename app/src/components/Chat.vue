@@ -75,8 +75,7 @@ export default {
     }
   },
   mounted(){
-    this.user = prompt("Digite seu nome");
-    this.socket.on('MESSAGE', (data) => {
+      this.socket.on('MESSAGE', (data) => {
       this.messages.push(data);           
     });
   }

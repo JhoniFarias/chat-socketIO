@@ -1,12 +1,15 @@
 <template>
 <div class="d-flex justify-content-center align-items-center container h-100">
-   <div class="row align-items-center h-100">
-    <div class="col-md-12">
+   <div class="row justify-content-center align-items-center h-100 w-100">
+   <div class="col-md-6">
+   <img src="https://blog.bsource.com.br/assets/img/programador.gif" class="img-fluid rounded" alt="Cinque Terre">
+   </div>
+    <div class="col-md-6">
      <form class="form-signin">
-        <h1 class="h3 mb-3 font-weight-normal">Login</h1>
-        <input type="email" id="inputEmail" class="form-control" placeholder="Seu email" required="" autofocus="">
+        <h1 class="h3 font-weight-normal text-center text-secondary" style="font-style: oblique;"><strong>Chat via Socket</strong></h1>
+        <input type="text" id="inputEmail" class="form-control" placeholder="Nome de usuario" required="" autofocus="">
         <input type="password" id="inputPassword" class="form-control mt-2" placeholder="Senha" required="">
-        <button class="btn btn-lg btn-primary btn-block mt-3" type="submit">Login</button>
+        <input type="button" class="btn btn-outline-primary btn-block mt-3" value="Enviar" @click="login()" />
     </form>
     </div>
    </div>
@@ -21,8 +24,22 @@ export default {
             password: ''
         }
     },methods:{
+        //autententicação para testes
+        //autenticação comentada para poder utilizar o sistema sem fazer login
         login(){
-            //TODO: call endpoint Login
+            fetch('http://localhost:8082/users', {
+            method: 'get',
+            headers: {
+                'Accept': 'application/json, text/plain, */*',
+                'Content-Type': 'application/json'
+            },
+            //body: JSON.stringify({user: 'Jhoni', passwd: '123'})
+
+            }).then(res => res.json())
+            .then(res => console.log(res));
+
+            //this.$emit("authenticated", true);
+            //this.$router.replace({ name: "chat" });
         }
     }
 }
