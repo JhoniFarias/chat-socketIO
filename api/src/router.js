@@ -1,10 +1,14 @@
 const express = require('express')
-const router = express.Router()
-
+const cors = require('cors')
 const db = require('./db/Connection')
 
+const router = express.Router()
+
+router.use(cors())
+router.use(express.json())
+
 // Rotas para manipular usuarios
-router.get('/users', (req, res) => {
+router.post('/authenticate', (req, res) => {
     let param = req.body
 
     if(!param){
@@ -14,6 +18,20 @@ router.get('/users', (req, res) => {
     db.get(`SELECT * FROM users WHERE user = ? AND passwd = ?;`, [param.user, param.passwd], (err, row) => {
         if(err){
             return res.send({'status': 500, 'msg': 'Erro ao buscar usuario - ' + err.message})
+        }
+        
+        if(row){
+            return res.send({'status': 200, 'result': row})
+        }
+
+        return res.send({'status': 404, 'msg': 'Nenhum usuario encontrado..'})
+    })
+})
+
+router.get('/users', (req, res) => {
+    db.get(`SELECT * FROM users;`, [], (err, row) => {
+        if(err){
+            return res.send({'status': 500, 'msg': 'Erro ao buscar usuarios - ' + err.message})
         }
         
         if(row){

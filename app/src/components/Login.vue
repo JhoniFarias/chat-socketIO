@@ -27,14 +27,16 @@ export default {
         //autententicação para testes
         //autenticação comentada para poder utilizar o sistema sem fazer login
         login(){
-            fetch('http://localhost:8082/users', {
-            method: 'get',
+            fetch('http://localhost:8082/authenticate', {
+            method: 'POST',
             headers: {
                 'Accept': 'application/json, text/plain, */*',
                 'Content-Type': 'application/json'
             },
-            //body: JSON.stringify({user: 'Jhoni', passwd: '123'})
-
+            body: JSON.stringify({
+                user: this.user,
+                passwd: this.password
+                })
             }).then(res => res.json())
             .then(res => console.log(res));
 
