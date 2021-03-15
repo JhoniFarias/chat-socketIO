@@ -11,7 +11,7 @@ router.use(express.json())
 router.post('/authenticate', (req, res) => {
     let param = req.body
 
-    if(!param){
+    if(!param || (param.user == '' && param.passwd == '')){
         return res.send({'status': 400, 'msg': 'Nenhum dado informado.'})
     }
 
@@ -45,7 +45,7 @@ router.get('/users', (req, res) => {
 router.post('/users', (req, res) => {
     let param = req.body
 
-    if(!param){
+    if(!param || (param.user == '' && param.passwd == '')){
         return res.send({'status': 400, 'msg': 'Nenhum dado informado.'})
     }
 

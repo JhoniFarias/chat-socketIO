@@ -7,8 +7,8 @@
     <div class="col-md-6">
      <form class="form-signin">
         <h1 class="h3 font-weight-normal text-center text-secondary" style="font-style: oblique;"><strong>Chat via Socket</strong></h1>
-        <input type="text" id="inputEmail" class="form-control" placeholder="Nome de usuario" required="" autofocus="">
-        <input type="password" id="inputPassword" class="form-control mt-2" placeholder="Senha" required="">
+        <input type="text" id="inputEmail" class="form-control" placeholder="Nome de usuario" required="" autofocus="" v-model="user">
+        <input type="password" id="inputPassword" class="form-control mt-2" placeholder="Senha" required="" v-model="password">
         <input type="button" class="btn btn-outline-primary btn-block mt-3" value="Enviar" @click="login()" />
     </form>
     </div>
