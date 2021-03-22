@@ -18,4 +18,20 @@ db.run('CREATE TABLE users(user_id INTEGER PRIMARY KEY, user TEXT UNIQUE, passwd
     console.log('Error creating tables users - ' + err)
 })
 
+db.run('CREATE TABLE users_blocked(user_blocked_id INTEGER PRIMARY KEY, user_id INTEGER, user_id_blocked INTEGER);', (err) => {
+    if(!err) {
+        return console.log('Created table users blocked')
+    }
+
+    console.log('Error creating tables users - ' + err)
+})
+
+db.run('CREATE TABLE messages(messages_id INTEGER PRIMARY KEY, user_id INTEGER, message_description TEXT);', (err) => {
+    if(!err) {
+        return console.log('Created table messages')
+    }
+
+    console.log('Error creating tables users - ' + err)
+})
+
 module.exports = db
