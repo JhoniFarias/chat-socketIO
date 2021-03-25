@@ -71,7 +71,7 @@ export default {
       text: "",
       messages: [],
       socket: io("localhost:8082"),
-      user: "",
+      loggedUser: ''
     };
   },
   methods: {
@@ -79,23 +79,29 @@ export default {
       this.socket.emit("SENDMESSAGE", {
         User: this.user,
         Text: this.text,
-        Date: new Date(),
+        Date: new Date()
       });
-
       this.text = "";
-      this.scroollToDown();
+      
     },
     scroollToDown() {
-      var boardMessage = document.querySelector("#boardMessage");
-      boardMessage.scrollTop =
-        boardMessage.scrollHeight - boardMessage.clientHeight;
+      let boardMessage = document.querySelector("#boardMessage");
+      let message = document.querySelector('.chat-messages');
+      boardMessage.scrollTop = message.clientHeight;
     },
   },
   mounted() {
+    this.user = sessionStorage.getItem("LoggedUser");
     this.socket.on("MESSAGE", (data) => {
       this.messages.push(data);
     });
   },
+  updated(){
+    //TODO: talvez aqui nao seja o melhor lugar
+    //para o scrollToDown, o updated dispara toda vez
+    //que o DOM re-renderiza
+    this.scroollToDown();
+  }
 };
 </script>
 

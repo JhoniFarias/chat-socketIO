@@ -64,6 +64,7 @@ export default {
         .then((res) => {
           if (res.data.status === 200) {
             this.$emit("authenticated", true);
+            sessionStorage.setItem("LoggedUser", res.data.result.user) //TODO: implementar utilizando Vuex
             this.$router.replace({ name: "chat" });
           }
         });

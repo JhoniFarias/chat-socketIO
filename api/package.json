@@ -4,7 +4,7 @@
   "description": "Projeto de conexao com WebSocket",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon src/index.js",
+    "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Jhoni Farias",
