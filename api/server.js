@@ -1,5 +1,6 @@
 const express = require('express')
 const routes = require('./src/router')
+const db = require('./db/Connection')
 
 const app = express()
 
@@ -13,9 +14,13 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log('user disconnected');
     });
-    socket.on("SENDMESSAGE", (message) => {
-        io.emit("MESSAGE", message);
-        console.log(message);
+    socket.on("SENDMESSAGE", (user, message) => {
+        db.run(`INSERT INTO messages (user_id, message_description) VALUES(?, ?);`, [user, message], (err) => {
+            if(err){
+                return
+            }
+            io.emit("MESSAGE", message);
+        })
     });
 });
 
