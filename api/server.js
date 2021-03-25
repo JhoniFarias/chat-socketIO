@@ -7,7 +7,11 @@ const app = express()
 app.use(routes)
 
 const http = require('http').createServer(app);
-const io = require('socket.io')(http);
+const io = require('socket.io')(http, {
+    cors: {
+        origin: '*',
+    }
+});
 
 io.on('connection', (socket) => {
     console.log("User Connected");
@@ -16,7 +20,7 @@ io.on('connection', (socket) => {
     });
     socket.on("SENDMESSAGE", (user, message) => {
         db.run(`INSERT INTO messages (user_id, message_description) VALUES(?, ?);`, [user, message], (err) => {
-            if(err){
+            if (err) {
                 return
             }
             io.emit("MESSAGE", message);
