@@ -57,7 +57,7 @@ router.post('/authenticate', (req, res) => {
 })
 
 router.get('/users', (req, res) => {
-    db.get(`SELECT * FROM users;`, [], (err, row) => {
+    db.all(`SELECT * FROM users;`, [], (err, row) => {
         if (err) {
             return res.send({ 'status': 500, 'msg': 'Erro ao buscar usuarios - ' + err.message })
         }

@@ -1,19 +1,20 @@
 <template>
-  <main>
-    <div class="container p-0" style="margin-top: 5%">
-      <div class="card">
-        <div class="row g-0">
-          <div class="col-12 col-lg-12 col-xl-12">
+<main>
+<div class="container p-0" >
+  <div class="card">
+    <div class="row g-0 h-100"> 
+    <SideBar></SideBar>     
+ <div class="col-7 col-lg-7 col-xl-7">
             <div class="py-2 px-4 border-bottom d-none d-lg-block">
               <div class="d-flex align-items-center py-1">
                 <div class="position-relative"></div>
               </div>
             </div>
-
+            
             <div
               class="position-relative"
               id="boardMessage"
-              style="max-height: 300px; overflow: hidden; overflow-y: scroll"
+              style="min-height: 300px; max-height:300px; overflow: hidden; overflow-y: scroll"
             >
               <div class="chat-messages p-4">
                 <template v-for="(message, index) in messages">
@@ -64,14 +65,19 @@
 
 <script>
 import io from "socket.io-client";
+import sideBar from './SideBar';
 
 export default {
+  components:{
+    SideBar: sideBar
+  },
   data() {
     return {
       text: "",
       messages: [],
       socket: io("localhost:8082"),
-      loggedUser: ''
+      loggedUser: '',
+	    users:[]
     };
   },
   methods: {
@@ -82,7 +88,9 @@ export default {
         Date: new Date()
       });
       this.text = "";
-      
+      this.$nextTick(()=> {
+		  this.scroollToDown();
+	  });
     },
     scroollToDown() {
       let boardMessage = document.querySelector("#boardMessage");
@@ -95,12 +103,6 @@ export default {
     this.socket.on("MESSAGE", (data) => {
       this.messages.push(data);
     });
-  },
-  updated(){
-    //TODO: talvez aqui nao seja o melhor lugar
-    //para o scrollToDown, o updated dispara toda vez
-    //que o DOM re-renderiza
-    this.scroollToDown();
   }
 };
 </script>

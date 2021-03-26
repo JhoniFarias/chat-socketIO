@@ -5,7 +5,7 @@
         <img
           src="https://blog.bsource.com.br/assets/img/programador.gif"
           class="img-fluid rounded"
-          alt="Cinque Terre"
+          alt=""
         />
       </div>
       <div class="col-md-6">
@@ -32,6 +32,7 @@
             placeholder="Senha"
             required=""
             v-model="password"
+            v-on:keyup.enter="login"
           />
           <input
             type="button"
@@ -46,6 +47,7 @@
 </template>
 <script>
 import axios from "axios";
+import endpoint from '../config/config.js';
 
 export default {
   data() {
@@ -57,7 +59,7 @@ export default {
   methods: {
     login() {
       axios
-        .post("http://localhost:8082/authenticate", {
+        .post(endpoint.AUTHENTICATE, {
           user: this.user,
           passwd: this.password,
         })
