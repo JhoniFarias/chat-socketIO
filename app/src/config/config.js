@@ -1,6 +1,8 @@
+const API_URL = 'http://localhost:8082';
+
 let endpoints = {
-    USERS: 'http://localhost:8082/users',
-    AUTHENTICATE: 'http://localhost:8082/authenticate'
+    USERS: `${API_URL}/users`,
+    AUTHENTICATE: `${API_URL}/authenticate`
 }
 
 
